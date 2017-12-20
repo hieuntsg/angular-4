@@ -1,0 +1,203 @@
+        <div class="row">
+            <div class="ui-g-12">
+                <form  (ngSubmit)="onSubmit(createServiceForm.value)" [formGroup]="createServiceForm" novalidate>
+                  <div class="card">
+                          <div class="card-header">
+                              <strong>Identity</strong>
+                          </div>
+                          <div class="card-block">
+                                  <div class="row" *ngIf="service">
+                                      <div class="ui-md-2">
+                                          <label for="id">ID</label>
+                                      </div>
+                                      <div class="ui-md-3">
+                                          <input type="text" pInputText class="form-control" formControlName="id" name="id"/>
+                                      </div>
+                                  </div>
+
+
+                                      <div class="row">
+                                          <div class="ui-md-2">
+                                              <label for="serviceName">Nom (*)</label>
+                                          </div>
+                                          <div class="ui-md-3">
+                                              <input type="text" pInputText class="form-control" formControlName="serviceName" name="serviceName" placeholder="Enter service name"/>
+                                          </div>
+                                          <div class="ui-md-3">
+                                             <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!createServiceForm.controls['serviceName'].valid
+                                                    && createServiceForm.controls['serviceName'].dirty">
+                                                    <i class="fa fa-close"></i>
+                                                    Service name is required
+                                              </div>
+                                          </div>
+                                      </div>
+
+
+                                      <div class="row">
+                                          <div class="ui-md-2">
+                                              <label for="appId">Application (*)</label>
+                                          </div>
+                                          <div class="ui-md-3">
+                                              <p-dropdown [options]="applications" class="form-control" [filter]="true" [style]="{'width':'300px'}"
+                                              formControlName="appId" name="appId" [selection]="selectedApp"></p-dropdown>
+                                          </div>
+                                          <div class="ui-md-3">
+                                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="createServiceForm.controls['appId']==0">
+                                                <i class="fa fa-close"></i>
+                                               Application is required
+                                            </div>
+                                          </div>
+                                      </div>
+
+
+                                      <div class="row">
+                                          <div class="ui-md-2">
+                                              <label for="url">URL (*)</label>
+                                          </div>
+                                          <div class="ui-md-3">
+                                              <input type="text" pInputText placeholder="Enter service url" class="form-control" formControlName="url" name="url"/>
+                                          </div>
+                                          <div class="ui-md-3">
+                                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!createServiceForm.controls['url'].valid
+                                             && createServiceForm.controls['url'].dirty">
+                                                <i class="fa fa-close"></i>
+                                               Service url is required
+                                            </div>
+                                          </div>
+                                      </div>
+
+
+                                      <div class="row">
+                                          <div class="ui-md-2">
+                                              <label for="city">Organization</label>
+                                          </div>
+                                          <div class="ui-md-5">
+                                              <p-dropdown [options]="organizations" class="form-control" [filter]="true" formControlName="orgId" [selection]="selectedOrg"
+                                                                                            [style]="{'width':'300px'}" ></p-dropdown>
+                                          </div>
+                                          <div class="ui-md-3">
+                                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="createServiceForm.controls['orgId']==0">
+                                                <i class="fa fa-close"></i>
+                                                Organization is required
+                                            </div>
+                                         </div>
+                                      </div>
+
+
+                                      <div class="row">
+                                          <div class="ui-md-2">
+                                              <label for="city">Chantier</label>
+                                          </div>
+                                          <div class="ui-md-3">
+                                              <input type="text" pInputText placeholder="Enter service site" class="form-control" formControlName="site"
+                                              />
+                                          </div>
+                                      </div>
+
+                                      <div class="row">
+                                          <div class="ui-md-2">
+                                              <label for="city">Type de partenaire (*)</label>
+                                          </div>
+                                          <div class="ui-md-3">
+                                                <p-dropdown [options]="partnerTypes" class="form-control" [filter]="true" [style]="{'width':'300px'}" [selection]="selectedType"                                                            formControlName="partnerTypeId"></p-dropdown>
+                                            </div>
+                                            <div class="ui-md-3">
+                                              <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!createServiceForm.controls['partnerTypeId'].valid
+                                                          && createServiceForm.controls['partnerTypeId'].dirty">
+                                                  <i class="fa fa-close"></i>
+                                                  Partner type is required
+                                              </div>
+                                           </div>
+                                       </div>
+                          </div>
+
+                          <div class="card-header">
+                              <strong>Functions</strong>
+                          </div>
+                          <div class="card-block">
+                                      <div class="row">
+                                          <div class="ui-md-2">
+                                              <label for="city">OAI ou CI (*) </label>
+                                          </div>
+                                          <div class="ui-md-3">
+                                              <input type="text" pInputText placeholder="Enter OAI (or CI)" class="form-control" formControlName="oai">
+                                          </div>
+                                          <div class="ui-md-3">
+                                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!createServiceForm.controls['oai'].valid
+                                             && createServiceForm.controls['oai'].dirty">
+                                                <i class="fa fa-close"></i>
+                                               OAI (or CI) is required
+                                             </div>
+                                          </div>
+                                      </div>
+
+                                      <div class="row">
+                                          <div class="ui-md-2">
+                                              <label for="city">Période de début de facturation (*)</label>
+                                          </div>
+                                          <div class="ui-md-2">
+                                              <input type="text" class="form-control" placeholder="Période de début de facturation" bsDatepicker formControlName="startDate" placement="right bottom"/>
+                                          </div>
+                                          <div class="ui-md-3">
+                                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!createServiceForm.controls['startDate'].valid
+                                            && createServiceForm.controls['startDate'].dirty">
+                                                <i class="fa fa-close"></i>
+                                               Start date billing is required
+                                            </div>
+                                          </div>
+                                      </div>
+
+
+                                      <div class="row">
+                                          <div class="ui-md-2">
+                                              <label for="city">Période de fin de facturation (*)</label>
+                                          </div>
+                                          <div class="ui-md-2">
+                                              <input type="text" class="form-control" placeholder="Période de fin de facturation" bsDatepicker formControlName="endDate" placement="right bottom"/>
+                                          </div>
+                                          <div class="ui-md-3">
+                                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!createServiceForm.controls['endDate'].valid
+                                            && createServiceForm.controls['endDate'].dirty">
+                                                <i class="fa fa-close"></i>
+                                               End date billing is required
+                                            </div>
+                                        </div>
+                                      </div>
+
+
+                                    <div class="row">
+                                          <div class="ui-md-2">
+                                              <label for="city">Montant mensuel (*)</label>
+                                          </div>
+                                          <div class="ui-md-3">
+                                              <input type="text" pInputText placeholder="Enter monthly price" class="form-control"
+                                              formControlName="monthly_price"/>
+                                          </div>
+                                          <div class="ui-md-3">
+                                            <div class="ui-message ui-messages-error ui-corner-all"
+                                              *ngIf="!createServiceForm.controls['monthly_price'].valid
+                                              && createServiceForm.controls['monthly_price'].dirty">
+                                                <i class="fa fa-close"></i>
+                                                Monthly price is required
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                          <div class="ui-md-2">
+                                              <label for="city">Commentaires</label>
+                                          </div>
+                                          <div class="ui-md-3">
+                                              <textarea [rows]="3" [cols]="80" pInputTextarea autoResize="autoResize" formControlName="comments"></textarea>
+                                          </div>
+                                    </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-sm btn-primary" *ngIf="role!='PARTNER'" [disabled]="!createServiceForm.valid"><i class="fa fa-check"></i>Enregistrer</button>
+                                <a [routerLink]="['/services']"><button type="button" class="btn btn-sm btn-default"><i class="fa fa-ban" ></i>Annuler</button></a>
+                            </div>
+                    </div>
+                 </form>
+            </div>
+      </div>
+

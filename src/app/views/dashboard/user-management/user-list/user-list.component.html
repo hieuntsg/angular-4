@@ -1,0 +1,91 @@
+<p-panel *ngIf="!displayCreateUserDialog">
+  <form >
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label>Nom&nbsp;&nbsp;</label>
+                <input type="text" pInputText placeholder="Nom du user..." #lastName title="Nom" size="30">
+             </div>
+            <div class="form-group col-md-2">
+                    <label>Prénom&nbsp;&nbsp;&nbsp;</label>
+                    <input type="text" pInputText placeholder="Prenom du user..." #firstName title="Prenom" size="30">
+            </div>
+            <div class="form-group col-md-2">
+                    <label>Société&nbsp;&nbsp;&nbsp;</label>
+                    <input type="text" pInputText placeholder="Société du user..." #companyName title="Société" size="30">
+            </div>
+            <div class="form-group col-md-2">
+                    <label>Email&nbsp;&nbsp;&nbsp;</label>
+                    <input type="text" pInputText placeholder="Email address du user..." #email title="Email address" size="30">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2">
+              <label>Actif&nbsp;&nbsp;&nbsp;</label>
+              <p-dropdown [options]="statuses" [selection]="selectedActive" [style]="{'width':'170px'}" #active></p-dropdown>
+            </div>
+            <div class="form-group col-md-2">
+                <label>User Type</label>
+                <p-dropdown [options]="userTypes" [selection]="selectedType" [style]="{'width':'170px'}" #userType></p-dropdown>
+            </div>
+            <div class="form-group col-md-3">
+                <label>User Role</label>
+                <p-dropdown [options]="allRoles" [selection]="selectedRole" [style]="{'width':'170px'}" #role></p-dropdown>
+            </div>
+        </div>
+  </form>
+
+
+  <p-dataTable [value]="allUsers" [paginator]="true" rows="15" #dt [pageLinks]="3" styleClass="custome_table"
+      [rowsPerPageOptions]="[15,20,30]"  selectionMode="single" [responsive]="true">
+      <p-column field="lastName" header="Nom"  [sortable]="true"  [exportable]="true"></p-column>
+      <p-column field="firstName" header="Prénom"  [sortable]="true"  [exportable]="true"></p-column>
+      <p-column field="email" header="Adresse email "  [sortable]="true"  [exportable]="true"></p-column>
+
+      <p-column header="Actif/Inactif" field="active"  [exportable]="true" [sortable]="true"  [style]="{'width': '150px'}">
+        <ng-template let-row="rowData" pTemplate="body" let-col let-index="rowIndex" >
+            <span class="badge badge-success" *ngIf="row.active===true">Actif</span>
+            <span class="badge badge-secondary" *ngIf="row.active===false">Inactif</span>
+        </ng-template>
+    </p-column>
+
+    <p-column field="serviceAdministrator" header="Administrateur de service"  [sortable]="true" [exportable]="true"
+          [style]="{'width': '150px'}">
+        <ng-template let-row="rowData" let-col let-index="rowIndex" pTemplate="p-dataTable">
+            <input class="form-check-input" type="checkbox" name="serviceAdministrator" id="serviceAdministrator" checked *ngIf="row.serviceAdministrator===true" disabled="true">
+            <input class="form-check-input" type="checkbox" name="serviceAdministrator" id="serviceAdministrator" *ngIf="row.serviceAdministrator===false"  disabled="true">
+        </ng-template>
+    </p-column>
+
+    <p-column field="generalAdministrator" header="General Administrateur"  [sortable]="true" [exportable]="true"
+            [style]="{'width': '150px'}">
+        <ng-template let-row="rowData" let-col let-index="rowIndex" pTemplate="p-dataTable">
+            <input class="form-check-input" type="checkbox" name="generalAdministrator" id="generalAdministrator" *ngIf="row.generalAdministrator===true" checked  disabled="true">
+            <input class="form-check-input" type="checkbox" name="generalAdministrator" id="generalAdministrator" *ngIf="row.generalAdministrator===false"  disabled="true">
+        </ng-template>
+      </p-column>
+
+    <p-column header="Actions" [style]="{'width': '120px'}">
+        <ng-template let-row="rowData" let-col let-index="rowIndex" pTemplate="p-dataTable">
+          <button type="button" pButton icon="fa-edit"  title="Update service"></button>
+          <button type="button" pButton (click)="activate(row,false)" icon="fa-check-square-o" title="Actif/deactif service"></button>
+          <button type="button" pButton icon="fa-remove" title="Supprimer le service" (click)="deleteUser(row , false)"></button>
+      </ng-template>
+    </p-column>
+    </p-dataTable>
+</p-panel>
+
+<p-dialog header="Confirm Actif/Deactif service" [(visible)]="activateDialog" modal="modal" width="300" [responsive]="true">
+  <p>êtes-vous sûr d'activer ou de désactiver ce user ?</p>
+  <p-footer>
+      <button type="button" pButton icon="fa-check" label="Yes" (click)="activate(selectedUser , true)"></button>
+      <button type="button" pButton icon="fa-close" (click)="activateDialog=false" label="No"></button>
+  </p-footer>
+</p-dialog>
+
+<p-dialog header="Confirm Delete service" [(visible)]="deleteDialog" modal="modal" width="300" [responsive]="true" >
+    <p>Etes-vous sûr de supprimer ce service ?</p>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" label="Yes" (click)="deleteUser(selectedUser , true)"></button>
+        <button type="button" pButton icon="fa-close" (click)="deleteDialog=false" label="No"></button>
+    </p-footer>
+</p-dialog>

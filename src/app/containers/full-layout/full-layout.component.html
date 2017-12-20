@@ -1,0 +1,39 @@
+<app-header></app-header>
+<div class="app-body">
+  <app-sidebar></app-sidebar>
+  <!-- Main content -->
+  <main class="main">
+    <!-- Breadcrumb -->
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb">
+      <app-breadcrumbs></app-breadcrumbs>
+      <!-- <li class="breadcrumb-menu d-md-down-none">
+              <div class="btn-group" role="group">
+                  <a class="btn" href="#"><i class="icon-notebook" title="Click to read manual guide"></i>&nbsp; Manual</a>
+              </div>
+          <div class="btn-group" role="group">
+              <a class="btn" href="/login"><i class="icon-user" title="Click to Sign out"></i>&nbsp; Leonard Nhan</a>
+            </div>
+      </li> -->
+      <!-- <li class="breadcrumb-menu d-md-down-none ui-lg-4" *ngIf="role!='General Administrator'">
+        <div class="btn-group" role="group">
+              <li class="nav-item px-1">
+                <a [routerLink]="['/dashboard/services']">Manage Services</a>
+              </li>
+              <li class="nav-item px-1">
+                <a [routerLink]="['/dashboard/user']">Manage Users</a>
+              </li>
+              <li class="nav-item px-1">
+                <a [routerLink]="['/dashboard/connections']" >Historical Connections</a>
+              </li>
+        </div>
+      </li> -->
+    </ol>
+
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div><!-- /.conainer-fluid -->
+  </main>
+  <app-aside></app-aside>
+</div>
+<app-footer></app-footer>

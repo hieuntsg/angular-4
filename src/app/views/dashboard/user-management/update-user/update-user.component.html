@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="ui-g-12">
+        <form (ngSubmit)="onSubmit(updateUserForm.value)" [formGroup]="updateUserForm" novalidate>
+          <div class="card">
+                  <div class="card-header">
+                      <strong>Update User {{user.fullName}}</strong>
+                  </div>
+                  <div class="card-block">
+                        <div class="row">
+                            <div class="ui-md-2">
+                                <label for="id">ID</label>
+                            </div>
+                            <div class="ui-md-5">
+                                <input type="text" pInputText class="form-control" formControlName="id" name="id" disabled="true"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="ui-md-2">
+                                      <label for="lastName">Nom (*)</label>
+                                </div>
+                                <div class="ui-md-5">
+                                      <input type="text" pInputText class="form-control" formControlName="lastName" placeholder="Enter last name"/>
+                                </div>
+                                <div class="ui-md-3">
+                                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!updateUserForm.controls['lastName'].valid
+                                     && updateUserForm.controls['lastName'].dirty">
+                                            <i class="fa fa-close"></i>
+                                            Le nom de famille est requis
+                                      </div>
+                                </div>
+                        </div>
+                        <div class="row">
+                                  <div class="ui-md-2">
+                                      <label for="firstName">Prénom (*)</label>
+                                  </div>
+                                  <div class="ui-md-5">
+                                      <input type="text" pInputText class="form-control" formControlName="firstName" placeholder="Prénom"/>
+                                  </div>
+                                  <div class="ui-md-3">
+                                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!createUserForm.controls['firstName'].valid && updateUserForm.controls['firstName'].dirty">
+                                            <i class="fa fa-close"></i>
+                                            Le prénom est requis
+                                      </div>
+                                  </div>
+                        </div>
+
+                        <div class="row">
+                                  <div class="ui-md-2">
+                                      <label for="companyName">Société</label>
+                                  </div>
+                                  <div class="ui-md-5">
+                                      <input type="text" pInputText class="form-control" formControlName="companyName" placeholder="Société"
+
+                                      />
+                                  </div>
+                                  <div class="ui-md-3">
+                                     <div class="ui-message ui-messages-error ui-corner-all"  *ngIf="!createUserForm.controls['companyName'].valid && updateUserForm.controls['companyName'].dirty">
+                                            <i class="fa fa-close"></i>
+                                            La compagnie est requise
+                                      </div>
+                                  </div>
+                        </div>
+
+                        <div class="row">
+                                  <div class="ui-md-2">
+                                      <label for="email">Adresse email (*)</label>
+                                  </div>
+                                  <div class="ui-md-5">
+                                      <input type="text" pInputText class="form-control" formControlName="email" placeholder="Adresse email"/>
+                                  </div>
+                                  <div class="ui-md-3">
+                                      <div class="ui-message ui-messages-error ui-corner-all"  *ngIf="!createUserForm.controls['email'].valid && updateUserForm.controls['email'].dirty">
+                                             <i class="fa fa-close"></i>
+                                             Adresse e-mail est nécessaire
+                                       </div>
+                                   </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="ui-md-2">
+                                <label for="email">New password (*)</label>
+                            </div>
+                            <div class="ui-md-5">
+                                <input type="password" pInputText class="form-control" formControlName="email" placeholder="New password"/>
+                            </div>
+                            <div class="ui-md-3">
+                                <div class="ui-message ui-messages-error ui-corner-all"  *ngIf="!createUserForm.controls['newPass'].valid && updateUserForm.controls['newPass'].dirty">
+                                       <i class="fa fa-close"></i>
+                                       New password est nécessaire
+                                 </div>
+                             </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="ui-md-2">
+                                <label for="email">Confirm password (*)</label>
+                            </div>
+                            <div class="ui-md-5">
+                                <input type="password" pInputText class="form-control" formControlName="email" placeholder="Confirm password"/>
+                            </div>
+                            <div class="ui-md-3">
+                                <div class="ui-message ui-messages-error ui-corner-all"  *ngIf="!createUserForm.controls['confirmPass'].valid && updateUserForm.controls['confirmPass'].dirty">
+                                       <i class="fa fa-close"></i>
+                                       Confirm password est nécessaire
+                                 </div>
+                             </div>
+                        </div>
+
+
+                  </div>
+                  <div class="card-footer">
+                        <button type="submit" class="btn btn-sm btn-primary" [disabled]="!createUserForm.valid"><i class="fa fa-check"></i>Enregistrer</button>
+                        <a><button type="button" class="btn btn-sm btn-default"><i class="fa fa-ban" ></i>Annuler</button></a>
+                  </div>
+            </div>
+         </form>
+    </div>
+</div>
+
