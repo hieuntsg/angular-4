@@ -63,8 +63,8 @@ import { UserService } from './services/user.service';
 import { CommonService } from 'app/services/common.service';
 import { CommonUtils } from './common/common-utils';
 import { ServiceListComponent } from './views/dashboard/service-management/service-list/service-list.component';
-
-
+import {CoreModule} from './core/core.module';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -75,8 +75,11 @@ import { ServiceListComponent } from './views/dashboard/service-management/servi
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    SplitButtonModule
+    SplitButtonModule,
+    CoreModule,
+    TranslateModule.forRoot()
   ],
+  exports : [CommonModule],
   declarations: [
     AppComponent,
     ...APP_CONTAINERS,
