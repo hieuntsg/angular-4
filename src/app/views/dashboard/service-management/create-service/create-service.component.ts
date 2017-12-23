@@ -131,8 +131,8 @@ initServiceForm() {
     );
 }
 
-  initUpdateServiceForm(updatedService: AppService) {
-
+initUpdateServiceForm(updatedService: AppService) {
+      console.log(updatedService);
       this.createServiceForm.controls['id'].disable();
       this.createServiceForm.controls['id'].setValue(updatedService.id);
       this.createServiceForm.controls['serviceName'].setValue(updatedService.serviceName);
@@ -152,7 +152,7 @@ initServiceForm() {
       this.createServiceForm.controls['endDate'].setValue(updatedService.endDate);
   }
 
-  initDisabledServiceForm(updatedService: AppService) {
+initDisabledServiceForm(updatedService: AppService) {
     this.createServiceForm.controls['id'].disable();
     this.createServiceForm.controls['id'].setValue(updatedService.id);
     this.createServiceForm.controls['serviceName'].disable();
@@ -189,9 +189,9 @@ initServiceForm() {
     this.createServiceForm.controls['active'].disable();
     this.createServiceForm.controls['comments'].setValue(updatedService.comments);
     this.createServiceForm.controls['comments'].disable();
-    this.createServiceForm.controls['startDate'].setValue(this.datePipe.transform(updatedService.startDate, 'dd/mm/yyyy'));
+    this.createServiceForm.controls['startDate'].setValue(updatedService.startDate);
     this.createServiceForm.controls['startDate'].disable();
-    this.createServiceForm.controls['endDate'].setValue(this.datePipe.transform(updatedService.endDate, 'dd/mm/yyyy'));
+    this.createServiceForm.controls['endDate'].setValue(updatedService.endDate);
     this.createServiceForm.controls['endDate'].disable();
 }
 

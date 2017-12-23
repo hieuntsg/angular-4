@@ -48,7 +48,7 @@
       <p-column header="Actions" [style]="{'width': '150px'}">
         <ng-template let-row="rowData" let-col let-index="rowIndex" pTemplate="p-dataTable">
           <button type="button" pButton icon="fa-edit" *ngIf="role!='partner'" (click)="update(row)" title="Update service"></button>
-          <a><button type="button" pButton icon=" fa fa-group" title="Gérer les utilisateurs" (click)="displayServicesOfUser(row)"></button></a>
+          <a><button type="button" pButton icon=" fa fa-group" title="Gérer les utilisateurs" (click)="displayUsersOfService(row)"></button></a>
           <button type="button" pButton (click)="activate(row,false)" icon="fa-check-square-o" title="Actif/deactif service"></button>
           <button type="button" pButton icon="fa-eye" (click)="update(row)" *ngIf="role=='partner'" title="Afficher les détails du service"></button>
           <button type="button" pButton icon="fa-remove" (click)="delete(row,false)" title="Supprimer le service" *ngIf="role=='general administrator'"></button>
@@ -65,7 +65,37 @@
     </p-dataTable>
 </p-panel>
 
-<p-dialog header="Confirm Delete service" [(visible)]="deleteDialog" modal="modal" width="300" [responsive]="true" >
+<p-dialog [(visible)]="displayServiceUsers" [width]="1200" modal="modal" [responsive]="true" [closeOnEscape]="true">
+    <p-header>
+        List Users of Service:
+    </p-header>
+       <app-service-users [displayServiceUsers]="displayServiceUsers" [allUsers]="usersOfService" [serviceId]="id"
+            (showServiceUsers)="showServiceUsers($event)"></app-service-users>
+    <p-footer>
+       <button type="button" pButton icon="fa-close" (click)="showServiceUsers(false)" label="Close"></button>
+    </p-footer>
+</p-dialog>
+
+
+<p-dialog [(visible)]="displayCreateUserDialog" [width]="1200" modal="modal" [responsive]="true" [closeOnEscape]="true" (onHide)="showServiceUsers(true)">
+    <p-header>
+       Create new User
+    </p-header>
+    <app-create-user [serviceId]="id"></app-create-user>
+    <p-footer>
+      <button type="button" pButton icon="fa-close" (click)="showServiceUsers(true)" label="Close"></button>
+    </p-footer>
+</p-dialog>
+
+<p-dialog [(visible)]="displayEditUserDialog" [width]="1200" modal="modal" [responsive]="true" [closeOnEscape]="true" (onHide)="showServiceUsers(true)">
+    <p-header>
+       Update User
+    </p-header>
+    <app-update-user [serviceId]="id" (update)="updateUser($event)"></app-update-user>
+</p-dialog>
+
+
+<p-dialog header="Confirm Delete service" [(visible)]="deleteDialog" modal="modal" width="300" [responsive]="true" [closeOnEscape]="true">
     <p>Etes-vous sûr de supprimer ce service ?</p>
     <p-footer>
         <button type="button" pButton icon="fa-check" label="Yes" (click)="delete(selectedService,true)"></button>
@@ -73,24 +103,13 @@
     </p-footer>
 </p-dialog>
 
-<p-dialog header="Confirm Actif/Deactif service" [(visible)]="activateDialog" modal="modal" width="300" [responsive]="true" >
+<p-dialog header="Confirm Actif/Deactif service" [(visible)]="activateDialog" modal="modal" width="300" [responsive]="true" [closeOnEscape]="true">
     <p>êtes-vous sûr d'activer ou de désactiver ce service ?</p>
     <p-footer>
         <button type="button" pButton icon="fa-check" label="Yes" (click)="activate(selectedService , true)"></button>
-        <button type="button" pButton icon="fa-close" (click)="activateDialog=false" label="No"></button>
+        <button type="button" pButton icon="fa-close" (click)="activateDialog=false" label="Close"></button>
     </p-footer>
 </p-dialog>
-
-<p-dialog [(visible)]="displayServiceUsers" [width]="1200" modal="modal" [responsive]="true" [closeOnEscape]="true" [closable]="true" >
-    <p-header>
-        List Users of Service: {{serviceName}}
-    </p-header>
-    <app-service-users [allUsers]="usersOfService" [serviceId]='id' [displayServiceUsers]="true"></app-service-users>
-    <p-footer>
-      <button type="button" pButton icon="fa-remove" label="Close" (onclick)="displayServiceUsers=false"></button>
-    </p-footer>
-</p-dialog>
-
 
 
 

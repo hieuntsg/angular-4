@@ -12,11 +12,14 @@ import { UserService } from 'app/services/user.service';
 })
 export class UpdateUserComponent implements OnInit {
 
+
 @Input('user')
 user: AppUser;
 
 updateUserForm: FormGroup;
 isUpdateSucess: boolean;
+
+
 
 constructor(
   private userService: UserService,
@@ -28,25 +31,17 @@ ngOnInit() {
 }
 
 onSubmit(user: UpdateUserForm) {
-  console.log(user);
-  // this.userService.updateUser(user).subscribe(
-  //   res => {
-  //       this.isUpdateSucess = res;
-  //   },
-  //   err => {
-  //       this.isUpdateSucess = false;
-  //   }
-  // );
+
 }
 
 initUpdateUserForm(user: AppUser) {
     this.updateUserForm = new FormGroup(
       {
-        'id': new FormControl(user.id),
-         // 'firstName': new FormControl(user.firstName, Validators.required),
-        'lastName': new FormControl(user.lastName , Validators.required),
-        'companyName': new FormControl(user.companyName),
-        'email': new FormControl(user.email, Validators.required),
+        'id': new FormControl(null),
+        'firstName': new FormControl(null),
+        'lastName': new FormControl(null),
+        'companyName': new FormControl(null),
+        'email': new FormControl(null),
         'newPass': new FormControl(null),
         'confirmPass': new FormControl(null),
       }

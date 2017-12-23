@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { MenubarModule, MenuItem } from 'primeng/primeng';
+import { Component, ElementRef } from '@angular/core';
+import { MenuItem } from 'primeng/primeng';
 import { Router } from '@angular/router';
 import { AppUser } from '../../models/user';
 import { CommonUtils } from '../../common/common-utils';
@@ -8,14 +8,13 @@ import { CommonUtils } from '../../common/common-utils';
   selector: 'app-header',
   templateUrl: './app-header.component.html'
 })
-export class AppHeaderComponent implements OnInit {
+export class AppHeader {
 
   items: MenuItem[];
-  dataLanguage: MenuItem[];
+  navbar_items: MenuItem[];
   currentUser: AppUser;
   loggedIn: boolean;
   fullName: string;
-  test1: String;
 
   constructor(
     private el: ElementRef,
@@ -24,25 +23,36 @@ export class AppHeaderComponent implements OnInit {
   ) { }
 
   // wait for the component to render completely
-  ngOnInit() {
-    this.fullName = sessionStorage.getItem('fullName');
-    this.dataLanguage = [
+  ngOnInit(): void {
+
+    this.navbar_items = [
       {
-        label: 'Francaise',
-        icon: 'fa-plus'
+          label: 'Francaise',
+          items: [{
+                  label: 'Francaise',
+                  icon: 'fa-plus',
+                  items: [
+                      {label: 'Project'},
+                      {label: 'Other'},
+                  ]
+              },
+              {label: 'English'},
+              {label: 'Dustche'}
+          ]
       },
       {
-          label: 'English',
-          icon: 'fa-edit'
-      },
-      {
-        label: 'Dustche',
-        icon: 'fa-edit'
+          label: 'Edit',
+          icon: 'fa-edit',
+          items: [
+              {label: 'Undo', icon: 'fa-mail-forward'},
+              {label: 'Redo', icon: 'fa-mail-reply'}
+          ]
       }
     ];
 
+    this.fullName = sessionStorage.getItem('fullName');
 
-    const nativeElement: HTMLElement = this.el.nativeElement,
+    var nativeElement: HTMLElement = this.el.nativeElement,
     parentElement: HTMLElement = nativeElement.parentElement;
     // move all children out of the element
     while (nativeElement.firstChild) {

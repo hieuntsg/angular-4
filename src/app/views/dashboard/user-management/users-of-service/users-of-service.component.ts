@@ -3,9 +3,8 @@ import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { UserService } from '../../../../services/user.service';
 import { AppUser } from '../../../../models/user';
-import { CreateUserComponent } from '../create-user/create-user.component';
-import { UpdateUserComponent } from '../update-user/update-user.component';
 import { ApplicationService } from '../../../../services/application.service';
+import { CreateUserComponent } from '../create-user/create-user.component';
 
 @Component({
   selector: 'app-service-users',
@@ -19,21 +18,26 @@ export class UsersOfServiceComponent implements OnInit {
   @Input('allUsers')
   allUsers: any;
 
-  @Input('displayServiceUsers')
-  displayServiceUsers: boolean;
+  @Input('displayCreateUserDialog')
+  displayCreateUserDialog: boolean;
 
-  @Output('displayCreateUserDialog')
-  displayCreateUserDialog = new EventEmitter<boolean>();
+  @Output('showServiceUsers')
+  showServiceUsers = new EventEmitter<boolean>();
 
-  @Output('displayUpdateUserDialog')
-  displayUpdateUserDialog = new EventEmitter<boolean>();
+  @Output('showCreate')
+  showCreate = new EventEmitter<boolean>();
+
+  @Output('update')
+  update = new EventEmitter<AppUser>();
+
+  displayUpdateDialog: boolean;
+
+
 
   activateDialog: boolean;
   deleteDialog: boolean;
   selectedUser: AppUser;
   foundUsers: any;
-  keyword: string;
-  opened: boolean;
 
 constructor(
     private http: Http,
@@ -42,7 +46,9 @@ constructor(
     private appService: ApplicationService
 ) { }
 
-ngOnInit() { }
+ngOnInit() {
+
+}
 
 activate(user: AppUser, confirmed: boolean) {
 
@@ -99,24 +105,13 @@ removeUserFromService(user: AppUser , serviceId: number , confirmed: boolean) {
      }
 }
 
-displayCreateDialog() {
-  this.displayServiceUsers = false;
+openCreateDialog() {
+  // this.showCreate.emit(true);
+  this.showServiceUsers.emit(false);
 }
 
-
-openEditUserDialog(user: AppUser) {
-  this.displayServiceUsers = false;
-  this.selectedUser = user;
-
-}
-
-searchInternalUser(event) {
-  console.log('query : ' + event.query);
-  this.userService.searchInternalUsers(event.query).subscribe(
-    data => {
-      this.foundUsers = data;
-    }
-  );
+updateUser(user: AppUser) {
+  this.update.emit(user);
 }
 
 

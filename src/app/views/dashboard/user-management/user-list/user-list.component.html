@@ -1,5 +1,5 @@
-<p-panel *ngIf="!displayCreateUserDialog">
-  <form >
+<p-panel>
+  <form>
         <div class="form-row">
             <div class="form-group col-md-2">
                 <label>Nom&nbsp;&nbsp;</label>
@@ -34,7 +34,6 @@
         </div>
   </form>
 
-
   <p-dataTable [value]="allUsers" [paginator]="true" rows="15" #dt [pageLinks]="3" styleClass="custome_table"
       [rowsPerPageOptions]="[15,20,30]"  selectionMode="single" [responsive]="true">
       <p-column field="lastName" header="Nom"  [sortable]="true"  [exportable]="true"></p-column>
@@ -66,7 +65,7 @@
 
     <p-column header="Actions" [style]="{'width': '120px'}">
         <ng-template let-row="rowData" let-col let-index="rowIndex" pTemplate="p-dataTable">
-          <button type="button" pButton icon="fa-edit"  title="Update service"></button>
+          <button type="button" pButton icon="fa-edit"  title="Update service" (click)="updateUser(row)"></button>
           <button type="button" pButton (click)="activate(row,false)" icon="fa-check-square-o" title="Actif/deactif service"></button>
           <button type="button" pButton icon="fa-remove" title="Supprimer le service" (click)="deleteUser(row , false)"></button>
       </ng-template>

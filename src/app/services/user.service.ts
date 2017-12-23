@@ -7,6 +7,10 @@ import { AppUser } from '../models/user';
 import { AppService } from 'app/models/service';
 import { CreateUserForm } from '../forms/create-user-form';
 import { UpdateUserForm } from '../forms/update-user-form';
+// Import env
+import { environment } from 'environments/environment';
+
+const API_URL = environment.serverUrl;
 
 @Injectable()
 export class UserService {
@@ -17,48 +21,53 @@ export class UserService {
   ) { }
 
   login(loginForm: string): Observable<AppUser> {
-    return this.http.post('http://localhost:8080/portail-partenaires/api/user/login' , loginForm).
+    return this.http.post(API_URL  + '/api/user/login' , loginForm).
         map(this.commonService.extractData).
         catch(this.commonService.handleError);
   }
 
   createNewUser(user: CreateUserForm , serviceId: number): Observable<boolean> {
-    return this.http.put('http://localhost:8080/portail-partenaires/api/service/add-user/' + serviceId , user)
+    return this.http.put(API_URL + '/api/service/add-user/' + serviceId , user)
         .map(this.commonService.extractData)
             .catch(this.commonService.handleError);
   }
 
+  getAllADUsers(): Observable<AppUser[]> {
+    return this.http.get(API_URL + '/api/user-ad')
+      .map(this.commonService.extractData).catch(this.commonService.handleError);
+  }
+
   getAllUsers(): Observable<AppUser[]> {
-    return this.http.get('http://localhost:8080/portail-partenaires/api/user')
+    return this.http.get(API_URL + '/api/user')
       .map(this.commonService.extractData).catch(this.commonService.handleError);
   }
 
   changeUserStatus(id: number, active: boolean) {
-    return this.http.get('http://localhost:8080/portail-partenaires/api/user/' + id + '/' + active)
+    return this.http.get(API_URL + '/api/user/' + id + '/' + active)
       .map(this.commonService.extractData)
       .catch(this.commonService.handleError);
   }
 
   deleteUser(id: number) {
-    return this.http.delete('http://localhost:8080/portail-partenaires/api/user/' + id)
+    return this.http.delete(API_URL + '/api/user/' + id)
       .map(this.commonService.extractData)
         .catch(this.commonService.handleError);
   }
 
   getUsersOfService(serviceId: number) {
-    return this.http.get('http://localhost:8080/portail-partenaires/api/user/service-users/' + serviceId)
+    return this.http.get(API_URL + '/api/user/service-users/' + serviceId)
       .map(this.commonService.extractData)
         .catch(this.commonService.handleError);
   }
 
   searchInternalUsers(query: any) {
-    return this.http.get('http://localhost:8080/portail-partenaires/api/user/search-internal' + query)
+    return this.http.get(API_URL + '/api/user/search-internal' + query)
         .map(this.commonService.extractData)
             .catch(this.commonService.handleError);
   }
 
   updateUser(user: UpdateUserForm) {
-    this.http.put('http://localhost:8080/portail-partenaires/api/user/' + user.id , user)
+    this.http.put(API_URL + '/api/user/' + user.id , user)
       .map(this.commonService.extractData)
         .catch(this.commonService.handleError);
   }

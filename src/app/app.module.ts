@@ -22,7 +22,7 @@ import {
   AppAside,
   AppBreadcrumbs,
   AppFooter,
-  AppHeaderComponent,
+  AppHeader,
   AppSidebar,
   AppSidebarFooter,
   AppSidebarForm,
@@ -34,7 +34,7 @@ const APP_COMPONENTS = [
   AppAside,
   AppBreadcrumbs,
   AppFooter,
-  AppHeaderComponent,
+  AppHeader,
   AppSidebar,
   AppSidebarFooter,
   AppSidebarForm,
@@ -63,8 +63,15 @@ import { UserService } from './services/user.service';
 import { CommonService } from 'app/services/common.service';
 import { CommonUtils } from './common/common-utils';
 import { ServiceListComponent } from './views/dashboard/service-management/service-list/service-list.component';
-import {CoreModule} from './core/core.module';
-import {TranslateModule} from '@ngx-translate/core';
+import { CoreModule } from './core/core.module';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export const createTranslateLoader = (http: HttpClient) => {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+};
+const languageKey = 'language';
 
 @NgModule({
   imports: [
@@ -76,10 +83,16 @@ import {TranslateModule} from '@ngx-translate/core';
     ReactiveFormsModule,
     FormsModule,
     SplitButtonModule,
+    HttpClientModule,
     CoreModule,
-    TranslateModule.forRoot()
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    })
   ],
-  exports : [CommonModule],
   declarations: [
     AppComponent,
     ...APP_CONTAINERS,

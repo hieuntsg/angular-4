@@ -17,8 +17,15 @@ export class CreateUserComponent implements OnInit {
   @Input('serviceId')
   serviceId: number;
 
-  @Output('openCloseCreateDialog')
-  openCloseCreateDialog = new EventEmitter<boolean>();
+  @Input('displayCreateUserDialog')
+  displayCreateUserDialog: boolean;
+
+  @Output('showCreate')
+  showCreate = new EventEmitter<boolean>();
+
+  @Output('showServiceUsers')
+  showServiceUsers = new EventEmitter<boolean>();
+
 
   submited: boolean;
   createUserForm: FormGroup;
@@ -79,15 +86,28 @@ export class CreateUserComponent implements OnInit {
     this.userService.createNewUser(user , this.serviceId).subscribe(
       res => {
           this.isCreatedSucess = res;
-
+          this.createUserForm.reset();
       },
       err => {
           this.isCreatedSucess = false;
       }
     );
-  }
+}
 
-  displayDialog(open: boolean) {
-    this.openCloseCreateDialog.emit(open);
-  }
+rechercherADUser() {
+  this.userService.getAllADUsers().subscribe(
+    data => {
+      console.log(data);
+    }
+  );
+}
+
+showCreateDialog(show: boolean) {
+    this.showCreate.emit(show);
+}
+
+closeCreateDialog() {
+  this.showServiceUsers.emit(true);
+}
+
 }

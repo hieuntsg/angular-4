@@ -1,63 +1,62 @@
-<p-panel *ngIf="displayServiceUsers">
-  <div class="row" style="margin-left: 1px">
-    <div class="ui-g-8">
-      <form>
-          <div class="form-group">
-                <input type="text" pInputText placeholder="Nom du user..." #keyword size="50" title="Search user">
-                <!-- <p-autoComplete [(ngModel)]="keyword" [suggestions]="foundUsers" (completeMethod)="searchInternalUser($event)"></p-autoComplete> -->
-                <button pButton type="button" icon="fa-user" label="Recherche" class="ui-button-secondary" title="Recherche user"> </button>
-              </div>
-        </form>
-      </div>
-      <div class="ui-g-5 ui-lg-offset-8 ui-md-offset-7">
-          <form>
-              <div class="form-group">
-                    <a><button pButton type="button" icon="fa-plus" label="Ajouter" title="Ajouter de service" (click)="openCreateUserDialog()"></button></a>
-                    <button pButton type="button" icon="fa-list" label="Importer" class="ui-button-success" title="Exporter tous les services"></button>
-                    <button pButton type="button" icon="fa-list" label="Exporter" (click)="dt.exportCSV()" class="ui-button-success" title="Exporter tous les services"></button>
-                  </div>
-            </form>
-      </div>
-  </div>
+  <p-panel>
+    <div class="row" style="margin-left: 1px">
+      <div class="ui-g-8">
+        <form>
+            <div class="form-group">
+                  <input type="text" pInputText placeholder="Nom du user..." #keyword size="50" title="Search user">
+                  <button pButton type="button" icon="fa-user" label="Recherche" class="ui-button-secondary" title="Recherche user"> </button>
+                </div>
+          </form>
+        </div>
+        <div class="ui-g-5 ui-lg-offset-8 ui-md-offset-7">
+            <form>
+                <div class="form-group">
+                      <a><button pButton type="button" icon="fa-plus" label="Ajouter" title="Ajouter de service" (click)="openCreateDialog()"></button></a>
+                      <button pButton type="button" icon="fa-list" label="Importer" class="ui-button-success" title="Exporter tous les services"></button>
+                      <button pButton type="button" icon="fa-list" label="Exporter" (click)="dt.exportCSV()" class="ui-button-success" title="Exporter tous les services"></button>
+                    </div>
+              </form>
+        </div>
+    </div>
 
-  <p-dataTable [value]="allUsers" [paginator]="true" rows="15" #dt [pageLinks]="3" styleClass="custome_table"
-      [rowsPerPageOptions]="[15,20,30]"  selectionMode="single" [responsive]="true">
-      <p-column field="lastName" header="Nom"  [sortable]="true"  [exportable]="true"></p-column>
-      <p-column field="firstName" header="Prénom"  [sortable]="true"  [exportable]="true"></p-column>
-      <p-column field="email" header="Adresse email "  [sortable]="true"  [exportable]="true"></p-column>
+    <p-dataTable [value]="allUsers" [paginator]="true" rows="15" #dt [pageLinks]="3" styleClass="custome_table"
+        [rowsPerPageOptions]="[15,20,30]"  selectionMode="single" [responsive]="true">
+        <p-column field="lastName" header="Nom"  [sortable]="true"  [exportable]="true"></p-column>
+        <p-column field="firstName" header="Prénom"  [sortable]="true"  [exportable]="true"></p-column>
+        <p-column field="email" header="Adresse email "  [sortable]="true"  [exportable]="true"></p-column>
 
-      <p-column header="Actif/Inactif" field="active"  [exportable]="true" [sortable]="true"  [style]="{'width': '100px'}">
-        <ng-template let-row="rowData" pTemplate="body" let-col let-index="rowIndex" >
-            <span class="badge badge-success" *ngIf="row.active===true">Actif</span>
-            <span class="badge badge-secondary" *ngIf="row.active===false">Inactif</span>
+        <p-column header="Actif/Inactif" field="active"  [exportable]="true" [sortable]="true"  [style]="{'width': '100px'}">
+          <ng-template let-row="rowData" pTemplate="body" let-col let-index="rowIndex" >
+              <span class="badge badge-success" *ngIf="row.active===true">Actif</span>
+              <span class="badge badge-secondary" *ngIf="row.active===false">Inactif</span>
+          </ng-template>
+      </p-column>
+
+      <p-column field="serviceAdministrator" header="Administrateur de service"  [exportable]="true"
+        [style]="{'width': '150px'}">
+          <ng-template let-row="rowData" let-col let-index="rowIndex" pTemplate="p-dataTable">
+              <p-checkbox name="serviceAdministrator" value="row.serviceAdministrator"></p-checkbox>
+          </ng-template>
+      </p-column>
+
+      <p-column header="Actions" [style]="{'width': '120px'}">
+          <ng-template let-row="rowData" let-col let-index="rowIndex" pTemplate="p-dataTable">
+            <button type="button" pButton icon="fa-edit" title="Update user" (click)="updateUser(row)"></button>
+            <button type="button" pButton (click)="activate(row,false)" icon="icon-check" title="Deactif service" *ngIf="row.active==false"></button>
+            <button type="button" pButton (click)="activate(row,false)" icon="icon-close" title="Actif service" *ngIf="row.active==true"></button>
+            <button type="button" pButton (click)="activate(row,false)" icon="icon-user-follow" title="Subscribe user to service" *ngIf="row.subcribe==false"></button>
+            <button type="button" pButton (click)="activate(row,false)" icon="icon-user-unfollow" title="Unscubscribe user to service" *ngIf="row.subcribe==true"></button>
+            <button type="button" pButton icon="fa-remove" title="Supprimer le service" (click)="removeUserFromService(row ,serviceId, true)"></button>
         </ng-template>
-    </p-column>
-
-    <p-column field="serviceAdministrator" header="Administrateur de service"  [exportable]="true"
-      [style]="{'width': '150px'}">
-        <ng-template let-row="rowData" let-col let-index="rowIndex" pTemplate="p-dataTable">
-            <p-checkbox name="serviceAdministrator" value="row.serviceAdministrator"></p-checkbox>
-        </ng-template>
-    </p-column>
-
-    <p-column header="Actions" [style]="{'width': '120px'}">
-        <ng-template let-row="rowData" let-col let-index="rowIndex" pTemplate="p-dataTable">
-          <button type="button" pButton icon="fa-edit" title="Update service" (click)="openEditUserDialog(row)"></button>
-          <button type="button" pButton (click)="activate(row,false)" icon="icon-check" title="Deactif service" *ngIf="row.active==false"></button>
-          <button type="button" pButton (click)="activate(row,false)" icon="icon-close" title="Actif service" *ngIf="row.active==true"></button>
-          <button type="button" pButton (click)="activate(row,false)" icon="icon-user-follow" title="Subscribe user to service" *ngIf="row.subcribe==false"></button>
-          <button type="button" pButton (click)="activate(row,false)" icon="icon-user-unfollow" title="Unscubscribe user to service" *ngIf="row.subcribe==true"></button>
-          <button type="button" pButton icon="fa-remove" title="Supprimer le service" (click)="removeUserFromService(row ,serviceId, true)"></button>
-      </ng-template>
-    </p-column>
-    </p-dataTable>
+      </p-column>
+      </p-dataTable>
 </p-panel>
 
-<app-create-user [serviceId]="serviceId" (openCloseCreateDialog)="displayCreateDialog($event)" ></app-create-user>
 
-<!-- <app-update-user [serviceId]="serviceId" *ngIf="displayUpdateUserDialog" [user]="selectedUser"></app-update-user> -->
 
-<p-dialog header="Confirm Actif/Deactif service" [(visible)]="activateDialog" modal="modal" width="300" [responsive]="true">
+
+
+<p-dialog header="Confirm Actif/Deactif service" [(visible)]="activateDialog" modal="modal" width="300" [responsive]="true" [closable]="false">
   <p>êtes-vous sûr d'activer ou de désactiver ce user ?</p>
   <p-footer>
       <button type="button" pButton icon="fa-check" label="Yes" (click)="activate(selectedUser , true)"></button>
@@ -72,6 +71,7 @@
         <button type="button" pButton icon="fa-close" (click)="deleteDialog=false" label="No"></button>
     </p-footer>
 </p-dialog>
+
 
 
 

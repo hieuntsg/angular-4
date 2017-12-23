@@ -23,7 +23,8 @@ export const routes: Routes = [
         loadChildren: './views/dashboard/dashboard.module#DashboardModule'
       }
     ]
-   },
+   }
+   ,
   {
     path: 'login',
     component: LoginComponent,

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
 import { AppService } from 'app/models/service';
 import { SelectItem, MenuItem, DataTable } from 'primeng/primeng';
 import { CommonService } from 'app/services/common.service';
@@ -48,7 +48,7 @@ export class ServiceListComponent implements OnInit {
   location: string;
   deleteDialog: boolean;
   activateDialog: boolean
-  displayServiceUsers = false;
+  displayServiceUsers: boolean;
 
   confirmed: boolean;
 
@@ -57,6 +57,11 @@ export class ServiceListComponent implements OnInit {
   userId: number;
 
   serviceName: string;
+
+  serviceUsersComp: UsersOfServiceComponent;
+  displayCreateUserDialog: boolean;
+  displayEditUserDialog: boolean;
+
 
   constructor(
     private appService: ApplicationService,
@@ -218,29 +223,38 @@ lazyLoadServices(event: LazyLoadEvent) {
 }
 
 
-displayServicesOfUser(service: AppService) {
+displayUsersOfService(service: AppService) {
    this.getAllUsersOfService(service);
+   this.displayServiceUsers = true;
 }
 
 getAllUsersOfService(service: AppService) {
-  localStorage.setItem('service-users' , 'opening');
   this.serviceName = service.serviceName;
   this.userService.getUsersOfService(service.id).subscribe(
     data => {
       this.usersOfService = data;
-      this.displayServiceUsers = true;
       this.selectedService = service;
       this.id = service.id;
+      this.displayServiceUsers = true;
     }
   );
 }
 
-onClose() {
-  this.displayServiceUsers = false;
+openCreateDialog(open: boolean) {
+  this.displayCreateUserDialog = open;
 }
 
+showServiceUsers(show: boolean) {
+  this.displayServiceUsers = show;
+  this.displayCreateUserDialog = !show;
+}
+
+updateUser(user: AppUser) {
+  console.log(user);
+  this.showServiceUsers(false);
+  this.displayEditUserDialog = true;
 }
 
 
-
+}
 

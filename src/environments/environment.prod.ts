@@ -1,6 +1,11 @@
 export const environment = {
-  production : true,
-  serverUrl : 'http://localhost:8080/portail-partenaires/api',
-  defaultLanguage : 'en-US',
-  supportedLanguages : ['en-US', 'fr-FR']
+  production: true,
+  // URL of production API
+  serverUrl: 'http://localhost:8080/portail-partenaires',
+  defaultLanguage: 'fr',
+  supportedLanguages: [
+    'fr',
+    'en',
+    'de'
+  ]
 };

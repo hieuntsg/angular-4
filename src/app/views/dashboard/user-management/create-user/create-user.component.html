@@ -1,126 +1,127 @@
-<div class="row">
-    <div class="ui-g-12">
-        <form (ngSubmit)="onSubmit(createUserForm.value)" [formGroup]="createUserForm" novalidate>
-          <div class="card">
-                  <div class="card-header">
-                      <strong>Create User</strong>
-                  </div>
 
-                  <div class="card-block">
-                        <div class="row">
-                            <div class="ui-md-2">
-                                  <label for="id">Interne / externe</label>
-                            </div>
-                            <div class="ui-md-1">
-                                  <div class="form-check">
-                                      <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="userType" id="userType" formControlName="userType" [checked]="internalChecked" (change)="selectInternal($event)">
-                                        Internal
-                                      </label>
-                                  </div>
-                            </div>
-                            <div class="ui-md-1">
-                                  <div class="form-check">
-                                      <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="userType" id="userType" formControlName="userType" [checked]="externalChecked" (change)="selectExternal($event)">
-                                        External
-                                      </label>
-                                  </div>
-                                  <input type="text" pInputText class="form-control" formControlName="serviceId" name="serviceId" hidden="hidden"/>
-                            </div>
-                        </div>
+    <div class="row">
+        <div class="ui-g-12">
+            <form (ngSubmit)="onSubmit(createUserForm.value)" [formGroup]="createUserForm" novalidate>
+              <div class="card">
+                      <div class="card-header">
+                          <strong>Create User</strong>
+                      </div>
 
-                        <div class="row" *ngIf="internalChecked">
-                            <div class="ui-md-2">
-                                  <label for="userName">Login</label>
-                            </div>
-                            <div class="ui-md-5">
-                                  <input type="text" pInputText class="form-control" formControlName="userName" placeholder="Enter or search internal user"/>
-                            </div>
-                            <div class="ui-md-3">
-                                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!createUserForm.controls['userName'].valid
-                                && createUserForm.controls['userName'].dirty">
-                                        <i class="fa fa-close"></i>
-                                        Le nom de famille est requis
-                                  </div>
-                            </div>
-                        </div>
-
-                        <div class="row" *ngIf="internalChecked">
-                            <div class="ui-md-6 ui-lg-offset-3">
-                                <button type="button" class="btn btn-sm btn-default"><i class="fa fa-user"></i>Rechercher dans I'AD</button>
-                            </div>
-                        </div>
-
-                        <div class="row">
+                      <div class="card-block">
+                            <div class="row">
                                 <div class="ui-md-2">
-                                      <label for="lastName">Nom (*)</label>
+                                      <label for="id">Interne / externe</label>
+                                </div>
+                                <div class="ui-md-1">
+                                      <div class="form-check">
+                                          <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="userType" id="userType" formControlName="userType" [checked]="internalChecked" (change)="selectInternal($event)">
+                                            Internal
+                                          </label>
+                                      </div>
+                                </div>
+                                <div class="ui-md-1">
+                                      <div class="form-check">
+                                          <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="userType" id="userType" formControlName="userType" [checked]="externalChecked" (change)="selectExternal($event)">
+                                            External
+                                          </label>
+                                      </div>
+                                      <input type="text" pInputText class="form-control" formControlName="serviceId" name="serviceId" hidden="hidden"/>
+                                </div>
+                            </div>
+
+                            <div class="row" *ngIf="internalChecked">
+                                <div class="ui-md-2">
+                                      <label for="userName">Login</label>
                                 </div>
                                 <div class="ui-md-5">
-                                      <input type="text" pInputText class="form-control" formControlName="lastName" placeholder="Enter last name"/>
+                                      <input type="text" pInputText class="form-control" formControlName="userName" placeholder="Enter or search internal user"/>
                                 </div>
                                 <div class="ui-md-3">
-                                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!createUserForm.controls['lastName'].valid
-                                     && createUserForm.controls['lastName'].dirty">
+                                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!createUserForm.controls['userName'].valid
+                                    && createUserForm.controls['userName'].dirty">
                                             <i class="fa fa-close"></i>
                                             Le nom de famille est requis
                                       </div>
                                 </div>
-                        </div>
-                        <div class="row">
-                                  <div class="ui-md-2">
-                                      <label for="firstName">Prénom (*)</label>
-                                  </div>
-                                  <div class="ui-md-5">
-                                      <input type="text" pInputText class="form-control" formControlName="firstName" placeholder="Prénom"
-                                      />
-                                  </div>
-                                  <div class="ui-md-3">
-                                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!createUserForm.controls['firstName'].valid && createUserForm.controls['firstName'].dirty">
-                                            <i class="fa fa-close"></i>
-                                            Le prénom est requis
+                            </div>
+
+                            <div class="row" *ngIf="internalChecked">
+                                <div class="ui-md-6 ui-lg-offset-3">
+                                    <button type="button" class="btn btn-sm btn-default" (click)="rechercherADUser()">
+                                        <i class="fa fa-user"></i>Rechercher dans I'AD
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                    <div class="ui-md-2">
+                                          <label for="lastName">Nom (*)</label>
+                                    </div>
+                                    <div class="ui-md-5">
+                                          <input type="text" pInputText class="form-control" formControlName="lastName" placeholder="Enter last name"/>
+                                    </div>
+                                    <div class="ui-md-3">
+                                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!createUserForm.controls['lastName'].valid
+                                        && createUserForm.controls['lastName'].dirty">
+                                                <i class="fa fa-close"></i>
+                                                Le nom de famille est requis
+                                          </div>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                      <div class="ui-md-2">
+                                          <label for="firstName">Prénom (*)</label>
                                       </div>
-                                  </div>
-                        </div>
-
-                        <div class="row">
-                                  <div class="ui-md-2">
-                                      <label for="companyName">Société</label>
-                                  </div>
-                                  <div class="ui-md-5">
-                                      <input type="text" pInputText class="form-control" formControlName="companyName" placeholder="Société"
-
-                                      />
-                                  </div>
-                                  <div class="ui-md-3">
-                                     <div class="ui-message ui-messages-error ui-corner-all"  *ngIf="!createUserForm.controls['companyName'].valid && createUserForm.controls['companyName'].dirty">
-                                            <i class="fa fa-close"></i>
-                                            La compagnie est requise
+                                      <div class="ui-md-5">
+                                          <input type="text" pInputText class="form-control" formControlName="firstName" placeholder="Prénom"
+                                          />
                                       </div>
-                                  </div>
-                        </div>
+                                      <div class="ui-md-3">
+                                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!createUserForm.controls['firstName'].valid && createUserForm.controls['firstName'].dirty">
+                                                <i class="fa fa-close"></i>
+                                                Le prénom est requis
+                                          </div>
+                                      </div>
+                            </div>
 
-                        <div class="row">
-                                  <div class="ui-md-2">
-                                      <label for="email">Adresse email (*)</label>
-                                  </div>
-                                  <div class="ui-md-5">
-                                      <input type="text" pInputText class="form-control" formControlName="email" placeholder="Adresse email"/>
-                                  </div>
-                                  <div class="ui-md-3">
-                                      <div class="ui-message ui-messages-error ui-corner-all"  *ngIf="!createUserForm.controls['email'].valid && createUserForm.controls['email'].dirty">
-                                             <i class="fa fa-close"></i>
-                                             Adresse e-mail est nécessaire
-                                       </div>
-                                   </div>
-                        </div>
-                  </div>
-                  <div class="card-footer">
-                        <button type="submit" class="btn btn-sm btn-primary" [disabled]="!createUserForm.valid"><i class="fa fa-check"></i>Enregistrer</button>
-                        <a><button type="button" class="btn btn-sm btn-default" (click)="close()"><i class="fa fa-ban" ></i>Annuler</button></a>
-                  </div>
-            </div>
-         </form>
+                            <div class="row">
+                                      <div class="ui-md-2">
+                                          <label for="companyName">Société</label>
+                                      </div>
+                                      <div class="ui-md-5">
+                                          <input type="text" pInputText class="form-control" formControlName="companyName" placeholder="Société"
+
+                                          />
+                                      </div>
+                                      <div class="ui-md-3">
+                                        <div class="ui-message ui-messages-error ui-corner-all"  *ngIf="!createUserForm.controls['companyName'].valid && createUserForm.controls['companyName'].dirty">
+                                                <i class="fa fa-close"></i>
+                                                La compagnie est requise
+                                          </div>
+                                      </div>
+                            </div>
+
+                            <div class="row">
+                                      <div class="ui-md-2">
+                                          <label for="email">Adresse email (*)</label>
+                                      </div>
+                                      <div class="ui-md-5">
+                                          <input type="text" pInputText class="form-control" formControlName="email" placeholder="Adresse email"/>
+                                      </div>
+                                      <div class="ui-md-3">
+                                          <div class="ui-message ui-messages-error ui-corner-all"  *ngIf="!createUserForm.controls['email'].valid && createUserForm.controls['email'].dirty">
+                                                <i class="fa fa-close"></i>
+                                                Adresse e-mail est nécessaire
+                                          </div>
+                                      </div>
+                            </div>
+                      </div>
+                      <div class="card-footer">
+                            <button type="submit" class="btn btn-sm btn-primary" [disabled]="!createUserForm.valid"><i class="fa fa-check"></i>Enregistrer</button>
+                      </div>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-

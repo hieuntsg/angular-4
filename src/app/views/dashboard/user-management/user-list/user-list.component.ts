@@ -12,6 +12,9 @@ import { SelectItem } from 'primeng/primeng';
 })
 export class UserListComponent implements OnInit {
 
+
+  serviceId: number;
+
   allUsers: any;
   activateDialog: boolean;
   deleteDialog: boolean;
@@ -27,45 +30,72 @@ export class UserListComponent implements OnInit {
   selectedUser: AppUser;
   selectedType: any;
 
-constructor(
-    private http: Http,
-    private router: Router,
-    private userService: UserService,
-    private commonService: CommonService
-) { }
 
-ngOnInit() {
-  this.getAllUsers();
-  this.initActiveDropDown();
-  this.initRolesDropDown();
-  this.initUserRoles();
-}
 
-getAllUsers() {
-    this.userService.getAllUsers().subscribe(
-      data => {
-        this.allUsers = data;
-      }
-    );
-}
+  constructor(
+      private http: Http,
+      private router: Router,
+      private userService: UserService,
+      private commonService: CommonService
+  ) { }
 
-activate(user: AppUser, confirmed: boolean) {
-
-  let activated: number;
-  let newStatus: boolean;
-
-  if (user.active) {
-    newStatus = false;
-  } else {
-    newStatus = true;
+  ngOnInit() {
+    this.getAllUsers();
+    this.initActiveDropDown();
+    this.initRolesDropDown();
+    this.initUserRoles();
   }
 
-  if (confirmed) {
-      this.userService.changeUserStatus(user.id , newStatus).subscribe(
+  getAllUsers() {
+      this.userService.getAllUsers().subscribe(
+        data => {
+          this.allUsers = data;
+        }
+      );
+  }
+
+  activate(user: AppUser, confirmed: boolean) {
+
+    let activated: number;
+    let newStatus: boolean;
+
+    if (user.active) {
+      newStatus = false;
+    } else {
+      newStatus = true;
+    }
+
+    if (confirmed) {
+        this.userService.changeUserStatus(user.id , newStatus).subscribe(
+                  res => {
+                    activated = res;
+                    this.activateDialog = false;
+                    if ( activated === 1 ) {// if delete sucess
+                      this.userService.getAllUsers().subscribe(
+                        data => {
+                          this.allUsers = data;
+                        }
+                      );
+                    }
+                  }
+              );
+              console.log(activated);
+        } else {
+              this.activateDialog = true;
+              this.selectedUser = user;
+        }
+    }
+
+  deleteUser(user: AppUser , confirmed: boolean) {
+
+          let deleted: boolean;
+
+          if (confirmed) {
+            this.userService.deleteUser(user.id).subscribe(
                 res => {
-                  activated = res;
-                  this.activateDialog = false;
-                  if ( activated === 1 ) {// if delete sucess
+                  deleted = res;
+                  this.deleteDialog = false;
+                  if ( deleted ) {// if delete sucess
                     this.userService.getAllUsers().subscribe(
                       data => {
                         this.allUsers = data;
@@ -74,65 +104,47 @@ activate(user: AppUser, confirmed: boolean) {
                   }
                 }
             );
-            console.log(activated);
-      } else {
-            this.activateDialog = true;
+          } else {
+            this.deleteDialog = true;
             this.selectedUser = user;
-      }
+          }
   }
 
-deleteUser(user: AppUser , confirmed: boolean) {
 
-        let deleted: boolean;
+  initActiveDropDown() {
+      const states = this.commonService.getStatues();
+      this.statuses = this.commonService.loadDropdownData(
+            states ,
+            'All' ,
+            'value',
+            'title'
+      );
+  }
 
-        if (confirmed) {
-          this.userService.deleteUser(user.id).subscribe(
-              res => {
-                deleted = res;
-                this.deleteDialog = false;
-                if ( deleted ) {// if delete sucess
-                  this.userService.getAllUsers().subscribe(
-                    data => {
-                      this.allUsers = data;
-                    }
-                  );
-                }
-              }
-          );
-        } else {
-          this.deleteDialog = true;
-          this.selectedUser = user;
-        }
-}
+  initRolesDropDown() {
+      const roles = this.commonService.getUserRoles();
+      this.allRoles = this.commonService.loadDropdownData(
+            roles ,
+            'All' ,
+            'value',
+            'title'
+      );
+  }
 
+  initUserRoles() {
+      const types = this.commonService.getAllUserTypes();
+      this.userTypes = this.commonService.loadDropdownData(
+        types ,
+        'All' ,
+        'value',
+        'title'
+      );
+  }
 
-initActiveDropDown() {
-    const states = this.commonService.getStatues();
-    this.statuses = this.commonService.loadDropdownData(
-          states ,
-          'All' ,
-          'value',
-          'title'
-    );
-}
+  updateUser(user: AppUser) {
+    console.log(user);
+    this.selectedUser = user;
+    this.serviceId = 0;
+  }
 
-initRolesDropDown() {
-    const roles = this.commonService.getUserRoles();
-    this.allRoles = this.commonService.loadDropdownData(
-          roles ,
-          'All' ,
-          'value',
-          'title'
-    );
-}
-
-initUserRoles() {
-    const types = this.commonService.getAllUserTypes();
-    this.userTypes = this.commonService.loadDropdownData(
-      types ,
-      'All' ,
-      'value',
-      'title'
-    );
-}
 }

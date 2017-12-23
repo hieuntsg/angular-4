@@ -2,16 +2,10 @@ import { Injectable } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { includes } from 'lodash';
 import { Logger } from './logger.service';
-import enUS from './locales/en-US.json';
-// import { enUs } from 'locales';
-// import {enUs} from '../../assets/locales/en-US.json';
-
 const log = new Logger('I18nService');
 const languageKey = 'language';
 
 /**
- * Pass-through function to mark a string for translation extraction.
- * Running `npm translations:extract` will include the given string by using this.
  * @param {string} s The string to extract for translation.
  * @return {string} The same string.
  */
@@ -26,14 +20,10 @@ export class I18nService {
   supportedLanguages: string[];
 
   constructor(private translateService: TranslateService) {
-    // Embed languages to avoid extra HTTP requests
-    // translateService.setTranslation('en-US', enUS );
-    // translateService.setTranslation('fr-FR', frFR);
+    // TODO
   }
 
   /**
-   * Initializes i18n for the application.
-   * Loads language from local storage if present, or sets default language.
    * @param {!string} defaultLanguage The default language to use.
    * @param {Array.<String>} supportedLanguages The list of supported languages.
    */
@@ -41,18 +31,16 @@ export class I18nService {
     this.defaultLanguage = defaultLanguage;
     this.supportedLanguages = supportedLanguages;
     this.language = null;
-
-    this.translateService.onLangChange
-      .subscribe((event: LangChangeEvent) => { localStorage.setItem(languageKey, event.lang); });
+    this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
+      localStorage.setItem(languageKey, event.lang);
+    });
   }
 
   /**
-   * Sets the current language.
-   * Note: The current language is saved to the local storage.
-   * If no parameter is specified, the language is loaded from local storage (if present).
-   * @param {string} language The IETF language code to set.
+   * @param {string} language
    */
   set language(language: string) {
+    debugger;
     language = language || localStorage.getItem(languageKey) || this.translateService.getBrowserCultureLang();
     let isSupportedLanguage = includes(this.supportedLanguages, language);
 

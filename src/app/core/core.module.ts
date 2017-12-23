@@ -5,7 +5,8 @@ import { HttpModule, Http, XHRBackend, ConnectionBackend, RequestOptions } from 
 import { TranslateModule } from '@ngx-translate/core';
 import { I18nService } from './i18n.service';
 
-export function createHttpService(backend: ConnectionBackend, defaultOptions: RequestOptions) {
+export function createHttpService(backend: ConnectionBackend,
+  defaultOptions: RequestOptions) {
   return new Http(backend, defaultOptions);
 }
 
@@ -29,8 +30,7 @@ export function createHttpService(backend: ConnectionBackend, defaultOptions: Re
 })
 export class CoreModule {
 
-  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
-    // Import guard
+  constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
     if (parentModule) {
       throw new Error(`${parentModule} has already been loaded. Import Core module in the AppModule only.`);
     }

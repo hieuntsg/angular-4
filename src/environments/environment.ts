@@ -4,8 +4,13 @@
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
 export const environment = {
-  production : false,
-  serverUrl : 'http://localhost:8080/portail-partenaires/api',
-  defaultLanguage : 'en-US',
-  supportedLanguages : ['en-US', 'fr-FR']
+  production: false,
+  // URL of development API
+  serverUrl: 'http://localhost:8080/portail-partenaires',
+  defaultLanguage: 'fr',
+  supportedLanguages: [
+    'fr',
+    'en',
+    'de'
+  ]
 };
