@@ -1,0 +1,14 @@
+.card-login-container .card-header span {
+    font-weight: bold;
+}
+
+.card-information-container {
+    border-color: green;
+}
+.card-information-container .card-header {
+    border-color: green;
+    color: green;
+}
+.card-information-container .card-header span {
+    font-weight: bold;
+}

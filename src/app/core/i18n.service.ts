@@ -40,7 +40,6 @@ export class I18nService {
    * @param {string} language
    */
   set language(language: string) {
-    debugger;
     language = language || localStorage.getItem(languageKey) || this.translateService.getBrowserCultureLang();
     let isSupportedLanguage = includes(this.supportedLanguages, language);
 

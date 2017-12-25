@@ -1,0 +1,113 @@
+.width100 {
+    width: 100%;
+}
+
+.app-header-container {
+    background-color: #777263;
+    color: #fff;
+    border: 0;
+}
+.app-header-container .left-header {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: flex-start;
+    height: 55px;
+    float: left;
+    align-items: center;
+    justify-content: center;
+}
+.left-header-icon i {
+    font-size: 30px;
+}
+.left-header-text {
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 22px;
+}
+.left-header-text p {
+    font-size: 10px;
+    position: absolute;
+    top: 40px;
+    color: #cecece;
+}
+.app-header-container .right-header {
+    color: #fff;
+}
+.app-header-container .right-header .navbar-nav .nav-link {
+    color: #fff;
+}
+
+.dropbtn {
+    background-color: #777263;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.right-header-logo {
+    width: 70px;
+    height: 60px;
+    display: flex;
+    position: relative;
+}
+.right-header-logo a {
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    left: 0;
+    margin-left: 0;
+}
+.right-header {
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 10px;
+}
+.right-header-language {
+    margin-top: 7px;
+}
+.right-header-account {
+    text-align: right;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.right-header-account a {
+    color: #fff;
+}
+
+.app-header.navbar .nav-item.nav-item-custom {
+    margin-left: 10px !important;
+    margin-right: 5px !important;
+}

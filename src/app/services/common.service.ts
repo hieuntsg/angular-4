@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/';
 import { Http, Response } from '@angular/http';
 import { SelectItem } from 'primeng/primeng';
+// Import env
+import { environment } from 'environments/environment';
+
+const API_URL = environment.serverUrl;
 
 @Injectable()
 export class CommonService {
@@ -42,29 +46,29 @@ export class CommonService {
   }
 
   getServicesNames() {
-    return this.http.get('http://localhost:8000/portail-partenaires/api/service/names')
+    return this.http.get(API_URL + '/service/names')
       .map(this.extractData)
       .catch(this.handleError);
   }
   getAllApplications() {
-    return this.http.get('http://localhost:8080/portail-partenaires/api/application')
+    return this.http.get(API_URL + '/application')
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   getOrganizations() {
-    return this.http.get('http://localhost:8080/portail-partenaires/api/organization')
+    return this.http.get(API_URL + '/organization')
       .map(this.extractData).catch(this.handleError);
   }
 
   getUsers() {
-    return this.http.get('http://localhost:8080/portail-partenaires/api/user')
+    return this.http.get(API_URL + '/user')
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   getPartnerTypes() {
-    return this.http.get('http://localhost:8080/portail-partenaires/api/partner_type')
+    return this.http.get(API_URL + '/partner_type')
       .map(this.extractData)
       .catch(this.handleError);
   }

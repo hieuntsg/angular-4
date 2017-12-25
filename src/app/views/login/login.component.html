@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="app flex-row align-items-center">
   <div class="container">
     <div class="row justify-content-center">
@@ -5,48 +6,76 @@
         <div class="card-group mb-0">
           <div class="card p-4">
             <div class="card-body">
-
-              <form (ngSubmit)="onSubmit(loginForm.value)" [formGroup]="loginForm" novalidate>
-                  <h1>Portail Partenaires</h1>
-                  <div class="input-group mb-3">
-                    <span class="input-group-addon"><i class="icon-user"></i></span>
-                    <input type="text" pInputText class="form-control" placeholder="Enter Email" formControlName="email" name="email">
-                    <!-- <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!loginForm.controls['email'].valid
-                          && loginForm.controls['email'].dirty">
-                        <i class="fa fa-close"></i>
-                        Email is required
-                    </div> -->
-                  </div>
-
-                  <div class="input-group mb-4">
-                    <span class="input-group-addon"><i class="icon-lock"></i></span>
-                    <input type="password" pPassword class="form-control" placeholder="Enter Password" formControlName="password" name="password">
-                    <!-- <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!loginForm.controls['password'].valid
-                        && loginForm.controls['password'].dirty">
-                      <i class="fa fa-close"></i>
-                      Password is required
-                    </div> -->
-                  </div>
-
-                  <div class="row">
-                    <div class="col-6">
-                      <button type="submit" class="btn btn-primary px-4">Login</button>
+                <div class="card card-login-container">
+                    <div class="card-header text-left">
+                        <span translate>connected</span>
                     </div>
-
-                    <div class="col-6 text-right">
-                      <button type="button" class="btn btn-link px-0" >Forgot password?</button>
+                    <div class="card-body text-left">
+                      <form (ngSubmit)="onSubmit(loginForm.value)" [formGroup]="loginForm" novalidate>
+                          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!loginForm.controls['email'].valid
+                                && loginForm.controls['email'].dirty">
+                              <i class="fa fa-close"></i>
+                              Email is required
+                          </div>
+                          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!loginForm.controls['password'].valid
+                                && loginForm.controls['password'].dirty">
+                              <i class="fa fa-close"></i>
+                              Password is required
+                          </div>
+                          <div class="input-group mb-3" style="margin-top:10px;">
+                            <span class="input-group-addon"><i class="icon-user"></i></span>
+                            <input type="text" pInputText class="form-control" placeholder="Enter Email" formControlName="email" name="email">
+                          </div>
+        
+                          <div class="input-group mb-4">
+                            <span class="input-group-addon"><i class="icon-lock"></i></span>
+                            <input type="password" pPassword class="form-control" placeholder="Enter Password" formControlName="password" name="password">
+                            
+                          </div>
+      
+                          <div class="row">
+                            <div class="col-6">
+                              <button type="submit" class="btn btn-primary px-4"[disabled]="!loginForm.controls['email'].valid || !loginForm.controls['password'].valid">
+                                Login
+                              </button>
+                            </div>
+                            <div class="col-6 text-right">
+                              <button type="button" class="btn btn-link px-0" >Forgot password?</button>
+                            </div>
+                          </div>
+                      </form>
                     </div>
-                  </div>
-              </form>
+                </div>
+              
             </div>
           </div>
-          <div class="card bg-primary py-5 d-md-down-none" style="width:44%">
+          <div class="card py-5">
             <div class="card-body text-center">
-              <div>
-
-                <h2 translate>welcome</h2>
-                <p>Sign in to use all features and contact us for help</p>
-                <button type="button" class="btn btn-primary active mt-3">Register Now!</button>
+              <div class="row">
+                <div class="col-md-6">
+                    <img class="card-img-top" src="" alt="Card image cap"/>
+                </div>
+                <div class="col-md-6">
+                  <span>
+                      En tant qu'utilisateur, je veux pouvoir accéder à l’écran de récupération 
+                      de mot de passe afin de pouvoir obtenir mes paramètres d’authentification en cas d’oubli.
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="card card-information-container">
+                  <div class="card-header text-left">
+                      <i class="fa fa-info-circle fa-lg"></i>
+                      <span>INFORMATION / INFORMATIONEN</span>
+                  </div>
+                  <div class="card-body text-left">
+                    <span>
+                        Tous les services du Portail Partenaires sont disponibles.
+                        <br>
+                        Bonne navigation !
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
