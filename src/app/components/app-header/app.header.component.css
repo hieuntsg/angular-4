@@ -1,11 +1,13 @@
 .width100 {
     width: 100%;
 }
-
+.app-header-max-width {
+    max-width: 100%;
+}
 .app-header-container {
-    background-color: #777263;
-    color: #fff;
-    border: 0;
+    background-color: #fff;
+    color: #000;
+    border-bottom: 1px solid #cecece;
 }
 .app-header-container .left-header {
     display: flex;
@@ -32,15 +34,15 @@
     color: #cecece;
 }
 .app-header-container .right-header {
-    color: #fff;
+    color: #000;
 }
 .app-header-container .right-header .navbar-nav .nav-link {
-    color: #fff;
+    color: #000;
 }
 
 .dropbtn {
-    background-color: #777263;
-    color: white;
+    background-color: #fff;
+    color: #000;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -104,10 +106,19 @@
 }
 
 .right-header-account a {
-    color: #fff;
+    color: #000;
 }
 
 .app-header.navbar .nav-item.nav-item-custom {
     margin-left: 10px !important;
     margin-right: 5px !important;
+}
+.right-logo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.right-logo-container .right_logo {
+    margin: 0;
 }

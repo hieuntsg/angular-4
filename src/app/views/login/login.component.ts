@@ -7,6 +7,7 @@ import { LoginForm } from '../../forms/login-form';
 import { UserRole } from '../../models/user-role';
 import { CommonUtils } from '../../common/common-utils';
 
+
 @Component({
   templateUrl: 'login.component.html',
   styleUrls: ['./login.component.css']
@@ -54,7 +55,11 @@ onSubmit(loginForm: string) {
           sessionStorage.setItem('currentUser' , JSON.stringify(this.currentUser));
           sessionStorage.setItem('role' , this.commonUtils.getRoleNameById(this.currentUser.roleId));
           sessionStorage.setItem('userId' , this.currentUser.id.toString());
-          this.router.navigate(['/services']);
+          if (this.currentUser.generalAdministrator === true || this.currentUser.serviceAdministrator === true) {
+            this.router.navigate(['/services']);
+          } else {
+            this.router.navigate(['/users-condition-page']);
+          }
         } else {
           // show message login fail.
         }

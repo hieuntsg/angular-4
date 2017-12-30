@@ -5,6 +5,7 @@ import { AppUser } from '../../models/user';
 import { CommonUtils } from '../../common/common-utils';
 import { I18nService } from '../../core/i18n.service';
 import * as _ from "lodash";
+import { ConfirmDialogModule } from 'primeng/components/confirmdialog/confirmdialog';
 import {ConfirmationService} from 'primeng/components/common/api';
 
 @Component({
@@ -40,7 +41,6 @@ export class AppHeader implements OnInit {
       this.loggedIn = true;
     } else {
       this.loggedIn = false;
-      this.login();
     }
 
   }

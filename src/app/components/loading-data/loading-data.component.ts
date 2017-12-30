@@ -7,7 +7,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 })
 export class LoadingDataComponent implements OnInit {
 
-  @Input() loading: boolean = false;
+  @Input() loading: boolean = true;
 
   constructor() { }
 

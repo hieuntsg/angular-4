@@ -12,3 +12,22 @@
 .card-information-container .card-header span {
     font-weight: bold;
 }
+.app-footer-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    background: #f0f3f5;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+    border-top: 1px solid #c2cfd6;
+}
+.app-footer-container span {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+}

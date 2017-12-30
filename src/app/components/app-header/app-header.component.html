@@ -1,5 +1,5 @@
 <header class="app-header navbar app-header-container">            
-    <div class="ui-g container">
+    <div class="ui-g container app-header-max-width">
         <div class="ui-g-12 ui-md-12 ui-lg-12">
             <div class="left-header">
                 <span class="left-header-icon">
@@ -21,15 +21,15 @@
                         <div class="dropdown-content">
                             <a (click)="setLanguage(language.id, $event)" *ngFor="let language of menuLanguage">{{language.name}}</a>
                         </div>
-                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        <i class="fa fa-caret-down" aria-hidden="true" style="color:#000;"></i>
                     </div>
                     <li class="nav-item nav-item-custom" *ngIf="loggedIn">
                         <a class="nav-link" [routerLink]="['mannual']" role="button">
                             <i class="fa fa-info-circle fa-lg"></i>
-                            <span>Manuel</span>
+                            <span translate>Manuel</span>
                         </a>
                     </li>
-                    <li class="nav-item" *ngIf="loggedIn">
+                    <li class="nav-item right-logo-container" *ngIf="loggedIn">
                         <a class="right_logo" href="#"></a>
                     </li>
                 </ul>

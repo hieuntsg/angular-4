@@ -1,4 +1,11 @@
 {
 	"welcome": "Welcome - en",
-	"connected": "Connection"
+	"connected": "Connection",
+	"Manuel": "Manual",
+	"services": "Services",
+	"menuUsers": "Users",
+	"history": "Histoty",
+	"nomDuService": "(En) Nom du service...",
+	"Unsubscribed": "Unsubscribed - en",
+	"application": "Application - en"
 }

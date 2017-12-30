@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './views/login/login.component';
+import {AppUserConditionComponent} from './views/app-user-condition/app-user-condition.component';
 
 // Import Containers
 import {
@@ -31,7 +32,12 @@ export const routes: Routes = [
     data: {
       title: 'User Login'
     }
-   }
+  },
+  {
+    path: 'users-condition-page',
+    component: AppUserConditionComponent,
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

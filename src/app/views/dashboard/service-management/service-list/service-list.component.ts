@@ -39,8 +39,6 @@ export class ServiceListComponent implements OnInit {
   selectedService: AppService;
   selectedActive: any;
 
-
-
   searchForm: SearchServiceForm;
   loading: boolean;
   id: number;

@@ -1,20 +1,15 @@
 import {AppUser} from '../models/user';
 import { JsonConvert } from 'json2typescript';
 
-
-
 export class CommonUtils {
-
 
   SERVICE_ADMIN   = 'service administrator';
   GENERAL_ADMIN   = 'general administrator';
   PARTNER         = 'PARTNER';
 
-
   ROLE_ID_GE_ADMIN = 1;
   ROLE_ID_SV_ADMIN = 2;
   ROLE_ID_PARTNER = 3;
-
 
   currentUser: AppUser;
 
